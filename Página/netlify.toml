@@ -3,7 +3,7 @@
 # y que los archivos a publicar están en la raíz.
 
 [build]
-  publish = "."
+  publish = "Página"
   command = ""
 
 # Los archivos de configuración y datos no se cachean, así un cambio
