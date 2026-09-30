@@ -15,7 +15,8 @@ var TEL_VISIBLE = CFG.telefonoVisible || "11 3578-7577";
 var EMAIL       = CFG.email || "info@mimedicinaprepaga.com.ar";
 var HORARIO     = CFG.horario || "de lunes a viernes de 9 a 19 h";
 var URGENCIAS   = CFG.urgencias || "0800-555-5556";
-var APORTE = CFG.aporteEfectivo != null ? CFG.aporteEfectivo : 7.65;   // % del bruto que llega a Avalian
+var APORTE = CFG.aporteEfectivo != null ? CFG.aporteEfectivo : 7.65;   // % del sueldo bruto que llega a Avalian
+var APORTE_MONO = CFG.aporteMonotributo != null ? CFG.aporteMonotributo : 70;  // % del componente de obra social
 var PLANES = [
   {n:"Cerca",    bit:1,  sub:"Cartilla de tu zona", color:"#B7E04B"},
   {n:"Hoy",      bit:2,  sub:"Entrada con copagos", color:"#3FBF72"},
@@ -340,7 +341,8 @@ var soloNumeros = soloDigitos;
 function calcular(){
   var base = parseInt(soloNumeros(elMonto.value), 10) || 0;
   var multiplicador = elPareja.checked ? 2 : 1;
-  var neto = modo === "dep" ? base * (APORTE/100) * multiplicador : base * multiplicador;
+  var porcentaje = modo === "dep" ? APORTE : APORTE_MONO;
+  var neto = base * (porcentaje/100) * multiplicador;
 
   $("#resultado").textContent = "$" + fmt.format(Math.round(neto));
   $("#explica").textContent = neto > 0
@@ -449,4 +451,3 @@ ficha.addEventListener("submit", function(ev){
 });
 
 })();
-

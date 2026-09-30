@@ -26,6 +26,10 @@ window.AVALIAN = {
 
   // Porcentaje del sueldo bruto que efectivamente llega a Avalian,
   // sumando el aporte del empleado y el del empleador.
-  aporteEfectivo: 7.65
+  aporteEfectivo: 7.65,
+
+  // Porcentaje del componente de obra social del monotributo que
+  // llega a Avalian.
+  aporteMonotributo: 70
 
 };
