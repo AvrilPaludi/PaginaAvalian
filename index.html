@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es-AR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avalian · Asesor oficial — Cartilla, planes y derivación de aportes</title>
+<meta name="description" content="Buscá tu sanatorio en la cartilla AMBA de Avalian, compará los cinco planes prestación por prestación y calculá cuánto de la cuota cubren tus aportes de monotributo o recibo de sueldo.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+<script src="cartilla.js" defer></script>
+<script src="main.js" defer></script>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="contenedor header-fila">
+    <a class="marca" href="#inicio" aria-label="Avalian cobertura médica, asesor comercial oficial, ir al inicio">
+      <img class="marca-img" src="logo-avalian.png" width="166" height="40" alt="Avalian cobertura médica" decoding="async">
+    </a>
+    <nav class="menu" id="menu" aria-label="Secciones">
+      <a href="#cartilla">Cartilla</a>
+      <a href="#aportes">Aportes</a>
+      <a href="#planes">Planes</a>
+      <a href="#asociarte">Cómo asociarte</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <a class="btn btn-lima" href="#cotizar">Pedir cotización</a>
+    <button class="hamburguesa" id="hamburguesa" aria-expanded="false" aria-controls="panel" aria-label="Abrir menú"><i></i></button>
+  </div>
+</header>
+
+<div class="velo" id="velo"></div>
+<aside class="panel" id="panel" aria-label="Menú" aria-hidden="true">
+  <div class="panel-top">
+    <img src="logo-avalian.png" width="124" height="30" alt="Avalian" decoding="async">
+    <button class="panel-cerrar" id="panelCerrar" aria-label="Cerrar menú">&times;</button>
+  </div>
+  <a class="link" href="#cartilla">Buscar en la cartilla</a>
+  <a class="link" href="#aportes">Derivar aportes</a>
+  <a class="link" href="#planes">Comparar planes</a>
+  <a class="link" href="#zonas">Centros por zona</a>
+  <a class="link" href="#asociarte">Cómo asociarte</a>
+  <a class="link" href="#preguntas">Preguntas</a>
+  <a class="link" href="#cotizar">Cotización</a>
+  <a class="btn btn-lima btn-ancho" href="#cotizar">Pedir cotización</a>
+  <p class="panel-pie">O escribime al <a class="cfg-tel" data-msg="Hola, quiero asesoramiento sobre los planes de Avalian." href="tel:+541135787577">11 3578-7577</a></p>
+</aside>
+
+<main id="inicio">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero" id="cartilla">
+    <div class="contenedor hero-grid">
+      <div>
+        <p class="sello"><span class="punto"></span>Asesor comercial oficial de Avalian</p>
+        <h1>Primero fijate si tu médico está. Después hablamos de precio.</h1>
+        <p class="bajada">Buscá tu sanatorio, laboratorio o centro médico y te digo en qué planes de Avalian entra. Con eso armamos la cotización, calculamos cuánto cubren tus aportes y hago el alta. El asesoramiento no tiene costo.</p>
+        <div class="hero-acciones">
+          <a class="btn" href="#cotizar">Pedir mi cotización</a>
+          <a class="btn btn-linea" href="#planes">Comparar los planes</a>
+        </div>
+        <div class="datos">
+          <div><span class="cifra" id="nTotal">261</span><small>centros de la cartilla cargados en este buscador</small></div>
+          <div><span class="cifra">5</span><small>planes comparados prestación por prestación</small></div>
+          <div><span class="cifra">45</span><small>años de Avalian en el sistema de salud</small></div>
+        </div>
+      </div>
+
+      <div class="buscador">
+        <h2>¿Está en la cartilla?</h2>
+        <p>Escribí el nombre del sanatorio, la clínica o el laboratorio.</p>
+        <div class="campo-busca">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+          <input id="q" type="search" autocomplete="off" placeholder="Hospital Italiano, Fleni, Rossi…" aria-label="Buscar prestador en la cartilla" aria-describedby="nota-cartilla">
+        </div>
+        <div class="sugerencias" id="sugerencias"></div>
+        <div class="resultados" id="resultados" role="region" aria-live="polite"></div>
+        <div class="detalle" id="detalle"></div>
+        <p class="nota" id="nota-cartilla">Cartillas oficiales de AMBA, La Plata, Luján y Zárate-Campana. La cartilla completa del país es más amplia: si no encontrás el tuyo, escribime y lo verifico hoy mismo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ APORTES ============================ -->
+  <section class="bloque bruma" id="aportes">
+    <div class="contenedor">
+      <div class="titulo-bloque">
+        <h2>Tus aportes ya están pagando una cobertura</h2>
+        <p class="intro">Si trabajás en relación de dependencia o estás en monotributo, todos los meses se descuenta un aporte de salud. Ese dinero se puede derivar a Avalian y se descuenta de la cuota del plan que elijas.</p>
+      </div>
+
+      <div class="aportes-grid">
+        <article class="via">
+          <h3>Relación de dependencia</h3>
+          <span class="dato">7,65%</span>
+          <p>De tu sueldo bruto, entre tu aporte y el de tu empleador, llega ese porcentaje a Avalian todos los meses.</p>
+          <ul>
+            <li>Si tu pareja también trabaja en blanco, los dos aportes se suman en un mismo grupo familiar.</li>
+            <li>El trámite es digital y lo presento yo ante la Superintendencia.</li>
+          </ul>
+        </article>
+
+        <article class="via">
+          <h3>Monotributo</h3>
+          <span class="dato">100%</span>
+          <p>Del componente de obra social que ya pagás en tu cuota mensual de monotributo se deriva completo.</p>
+          <ul>
+            <li>Por cada adherente familiar se paga un componente adicional que también se deriva.</li>
+            <li>Necesitás estar al día con los pagos de los últimos meses.</li>
+          </ul>
+        </article>
+
+        <div class="simulador">
+          <h3>Cuánto se descuenta de tu cuota</h3>
+          <div class="modos" role="group" aria-label="Tipo de aporte">
+            <button type="button" id="modoDep" aria-pressed="true">Recibo de sueldo</button>
+            <button type="button" id="modoMono" aria-pressed="false">Monotributo</button>
+          </div>
+
+          <div class="sim-campo">
+            <label for="monto" id="lblMonto">Tu sueldo bruto mensual</label>
+            <div class="monto"><span>$</span><input id="monto" type="text" inputmode="numeric" placeholder="1.500.000" aria-describedby="hintMonto"></div>
+            <span class="hint" id="hintMonto">El bruto, antes de los descuentos del recibo.</span>
+          </div>
+
+          <label class="sim-check"><input type="checkbox" id="sumaPareja"> Mi pareja también aporta y entra en el mismo grupo</label>
+
+          <div class="sim-out">
+            <span class="rotulo">Llega a Avalian por mes</span>
+            <div class="valor" id="resultado">$0</div>
+            <p id="explica">Ese monto se descuenta de la cuota del plan. Escribime y te paso la diferencia exacta a pagar.</p>
+          </div>
+          <p class="nota">Cálculo orientativo sobre los porcentajes vigentes. El monto definitivo lo confirma la Superintendencia de Servicios de Salud al procesar la derivación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PLANES ============================ -->
+  <section class="bloque" id="planes">
+    <div class="contenedor">
+      <div class="titulo-bloque">
+        <h2>Los cinco planes, prestación por prestación</h2>
+        <p class="intro">Esto es lo que dice el diagrama de cobertura oficial de cada plan, sin resumir. La diferencia entre uno y otro está en tres cosas: cuánta cartilla tenés, si pagás copago y cuántas sesiones te cubren por año.</p>
+      </div>
+
+      <div class="barra-comp">
+        <div class="filtros-plan" id="filtrosPlan" role="group" aria-label="Planes a mostrar"></div>
+        <label class="switch"><input type="checkbox" id="soloDif"><span class="riel"></span> Ver solo las diferencias</label>
+      </div>
+
+      <div class="tabla-wrap">
+        <table class="comp" id="tablaComp">
+          <thead><tr id="cabecera"></tr></thead>
+          <tbody id="cuerpo"></tbody>
+        </table>
+      </div>
+      <p class="pista">Deslizá la tabla para ver el resto, o apagá los planes que no te interesen.</p>
+      <p class="leyenda">
+        <span>Copago: monto fijo que pagás al prestador en el momento.</span>
+        <span>Todos los planes cubren el Programa Médico Obligatorio.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================ ZONAS ============================ -->
+  <section class="bloque bruma" id="zonas">
+    <div class="contenedor">
+      <div class="titulo-bloque">
+        <h2>Dónde te atendés según la zona</h2>
+        <p class="intro">Elegí tu zona y mirá cuántos centros tiene cada plan. La diferencia entre un plan y otro se ve acá mejor que en cualquier folleto.</p>
+      </div>
+      <div class="zonas-scroll"><div class="zonas" id="zonasBtns" role="group" aria-label="Zona"></div></div>
+      <p class="zona-resumen" id="zonaResumen"></p>
+      <div class="conteo" id="conteo"></div>
+      <div class="nube" id="nube"></div>
+      <div class="ver-mas" id="verMas"></div>
+      <p class="clave-t">Cada centro de la lista lleva el color del plan más económico que lo incluye.</p>
+    </div>
+  </section>
+
+  <!-- ============================ ASOCIARTE ============================ -->
+  <section class="bloque" id="asociarte">
+    <div class="contenedor">
+      <div class="titulo-bloque">
+        <h2>El alta lleva tres pasos y la hago yo</h2>
+        <p class="intro">Vos ponés los datos una sola vez. Yo armo la solicitud, la presento y te aviso desde cuándo estás cubierto.</p>
+      </div>
+      <div class="pasos">
+        <article class="paso">
+          <h3>Me contás tu situación</h3>
+          <p>Edad, quiénes se asocian, cómo aportás y qué médicos o sanatorios querés conservar. Con eso descarto los planes que no te sirven.</p>
+        </article>
+        <article class="paso">
+          <h3>Te paso dos o tres opciones</h3>
+          <p>Con la cuota final ya descontados tus aportes y las bonificaciones vigentes, más el detalle escrito de qué cubre y qué no cada plan.</p>
+        </article>
+        <article class="paso">
+          <h3>Firmás y quedás cubierto</h3>
+          <p>El alta es digital. Presento la solicitud y la derivación de aportes, y te confirmo el número de socio y la fecha desde la que podés usar la cobertura.</p>
+        </article>
+      </div>
+
+      <div class="requisitos">
+        <h3>Qué documentación necesito</h3>
+        <ul>
+          <li>DNI del titular y de cada integrante del grupo familiar.</li>
+          <li>Últimos tres recibos de sueldo, o las constancias de pago del monotributo.</li>
+          <li>CBU para el débito de la diferencia de cuota.</li>
+          <li>Partida de nacimiento o libreta de matrimonio cuando se incorporan hijos o cónyuge.</li>
+          <li>Declaración jurada de salud, que completamos juntos.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ COTIZAR ============================ -->
+  <section class="bloque bruma" id="cotizar">
+    <div class="contenedor">
+      <div class="titulo-bloque">
+        <h2>Pedime la cotización</h2>
+        <p class="intro">Seis datos y te mando la propuesta con los valores vigentes. Si preferís hablar, escribime por WhatsApp y lo resolvemos ahí mismo.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="lateral">
+          <div><b>Escribime por WhatsApp</b><p><a class="cfg-tel" data-msg="Hola, quiero pedir una cotización de Avalian." href="tel:+541135787577">11 3578-7577</a>, <span class="cfg-horario">de lunes a viernes de 9 a 19 h</span>.</p></div>
+          <div><b>Correo</b><p><a class="cfg-mail" href="mailto:info@mimedicinaprepaga.com.ar">info@mimedicinaprepaga.com.ar</a></p></div>
+          <div><b>Qué recibís</b><p>Un comparativo con la cuota final de cada plan que te sirva, ya descontados tus aportes. Sin compromiso de contratación.</p></div>
+          <div><b>Urgencias, si ya sos socio</b><p><a class="cfg-urgencias" href="tel:08005555556">0800-555-5556</a>, las 24 horas.</p></div>
+        </div>
+
+        <form class="ficha" id="ficha" novalidate>
+          <div class="fila dos">
+            <div class="item">
+              <label for="nombre">Tu nombre <i aria-hidden="true">*</i></label>
+              <input id="nombre" type="text" autocomplete="name" required>
+              <span class="error">Poné tu nombre y apellido.</span>
+            </div>
+            <div class="item">
+              <label for="tel">Tu teléfono <i aria-hidden="true">*</i></label>
+              <input id="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="11 5555-5555" required>
+              <span class="error">Necesito al menos ocho dígitos.</span>
+            </div>
+          </div>
+
+          <div class="fila dos">
+            <div class="item">
+              <label for="aporte">Cómo aportás <i aria-hidden="true">*</i></label>
+              <select id="aporte" required>
+                <option value="">Elegí una opción</option>
+                <option>Relación de dependencia</option>
+                <option>Monotributo</option>
+                <option>Monotributo social</option>
+                <option>Personal de casas particulares</option>
+                <option>Sin aportes, particular</option>
+              </select>
+              <span class="error">Elegí cómo aportás.</span>
+            </div>
+            <div class="item">
+              <label for="grupo">Quiénes se asocian <i aria-hidden="true">*</i></label>
+              <select id="grupo" required>
+                <option value="">Elegí una opción</option>
+                <option>Solo yo</option>
+                <option>Con mi pareja</option>
+                <option>Con mis hijos</option>
+                <option>Grupo familiar completo</option>
+              </select>
+              <span class="error">Elegí el grupo.</span>
+            </div>
+          </div>
+
+          <div class="fila dos">
+            <div class="item">
+              <label for="edad">Tu edad <i aria-hidden="true">*</i></label>
+              <input id="edad" type="number" min="0" max="99" inputmode="numeric" required>
+              <span class="error">Una edad entre 0 y 99.</span>
+            </div>
+            <div class="item">
+              <label for="zona">Dónde vivís <i aria-hidden="true">*</i></label>
+              <select id="zona" required>
+                <option value="">Elegí una zona</option>
+                <option>CABA</option>
+                <option>GBA Norte</option>
+                <option>GBA Noroeste</option>
+                <option>GBA Oeste</option>
+                <option>GBA Sur</option>
+                <option>La Plata</option>
+                <option>Interior del país</option>
+              </select>
+              <span class="error">Elegí dónde vivís.</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <label for="notas">Médicos o sanatorios que querés conservar</label>
+            <textarea id="notas" placeholder="Ej.: me atiendo en el Hospital Italiano y quiero seguir con mi ginecóloga."></textarea>
+          </div>
+
+          <div class="pie-form">
+            <button class="btn btn-lima btn-ancho" type="submit">Enviar la consulta</button>
+            <small>Se abre WhatsApp con el mensaje ya escrito. Los datos no se guardan en este sitio.</small>
+            <div class="enviado" id="enviado">Listo, te abrí WhatsApp con la consulta cargada. Si no se abrió, escribime al <a class="cfg-tel" data-msg="Hola, completé el formulario del sitio y quiero cotizar un plan de Avalian." href="tel:+541135787577">11 3578-7577</a>.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PREGUNTAS ============================ -->
+  <section class="bloque" id="preguntas">
+    <div class="contenedor">
+      <div class="titulo-bloque"><h2>Preguntas frecuentes</h2></div>
+      <div class="preguntas" id="listaPreguntas">
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Cuánto termino pagando si derivo mis aportes?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>Depende de tres cosas: el plan, las edades del grupo y cuánto suman tus aportes. La cuenta es simple: cuota del plan menos aporte derivado, y esa diferencia se debita de tu CBU. Si el aporte alcanza a cubrir la cuota, no pagás diferencia. Pasame tu sueldo bruto o tu categoría de monotributo y te hago el número exacto.</p></div></div>
+        </article>
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Puedo cambiar de obra social si ya estoy en una?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>Sí, una vez por año calendario. Si ya hiciste un cambio en los últimos doce meses hay que esperar a que se cumpla el plazo. Antes de presentar nada verifico tu situación en la Superintendencia para no perder el trámite.</p></div></div>
+        </article>
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Qué pasa si mi médico no está en la cartilla?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>El buscador de arriba tiene los principales prestadores del AMBA, pero la cartilla completa es más amplia e incluye el interior. Decime el nombre del profesional o del centro y lo verifico en la cartilla actualizada. Si igual queda afuera, el plan Selecta tiene reintegros por prestadores fuera de cartilla según los valores de Avalian.</p></div></div>
+        </article>
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Hay período de espera para usar la cobertura?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>Las prestaciones del Programa Médico Obligatorio están disponibles desde el inicio de la cobertura. Algunas prácticas puntuales, como ortodoncia, cirugía refractiva o prótesis, exigen una permanencia mínima en el sistema: la cirugía refractiva, por ejemplo, se cubre a partir de los doce meses. Te paso el detalle por escrito antes de que firmes.</p></div></div>
+        </article>
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Hasta qué edad entran los hijos en el grupo familiar?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>Hasta los 21 años sin condiciones, y hasta los 25 si estudian y siguen a cargo, presentando certificado de alumno regular. Los hijos con discapacidad no tienen límite de edad. Al recién nacido se lo incorpora desde el día del parto con el certificado de nacimiento.</p></div></div>
+        </article>
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Los medicamentos tienen descuento?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>Sí. En los planes Cerca, Hoy, Integral y Superior la cobertura de farmacia ambulatoria es del 40% sobre el precio de venta al público. En Selecta llega al 50% o al 75% según la variante. La medicación oncológica y la de alto costo siguen lo que establece el Programa Médico Obligatorio, con cobertura del 100%.</p></div></div>
+        </article>
+
+        <article class="pregunta">
+          <button type="button" aria-expanded="false">¿Cuánto cobrás por asesorarme?<span class="mas" aria-hidden="true"></span></button>
+          <div class="respuesta"><div><p>Nada. Soy asesor comercial oficial y me paga Avalian por las altas, no vos. La cuota es la misma que si contrataras por tu cuenta, con la diferencia de que tenés a alguien a quien escribirle cuando se traba una autorización o un reintegro.</p></div></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie" id="contacto">
+  <div class="contenedor">
+    <div class="pie-grid">
+      <div>
+        <span class="marca-mini"><img src="logo-avalian.png" width="182" height="44" alt="Avalian cobertura médica" decoding="async"></span>
+        <p style="margin-top:11px;max-width:42ch;font-size:.94rem;color:var(--gris)">Asesor comercial oficial de Avalian Cobertura Médica. Te acompaño desde la cotización y durante toda la afiliación: autorizaciones, reintegros y cambios de plan.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="#cartilla">Buscar en la cartilla</a></li>
+          <li><a href="#aportes">Derivar aportes</a></li>
+          <li><a href="#planes">Comparar planes</a></li>
+          <li><a href="#zonas">Centros por zona</a></li>
+          <li><a href="#asociarte">Cómo asociarte</a></li>
+          <li><a href="#preguntas">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="contacto-pie">
+          <a class="cfg-tel" data-msg="Hola, quiero asesoramiento sobre los planes de Avalian." href="tel:+541135787577">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 5.5c0 8 6 14 14 14l1.8-3.4-4-2-1.7 2a13 13 0 0 1-6.7-6.7l2-1.7-2-4Z"/></svg>
+            11 3578-7577</a>
+          <a class="cfg-mail" href="mailto:info@mimedicinaprepaga.com.ar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+            info@mimedicinaprepaga.com.ar</a>
+          <a class="wa" data-msg="Hola, quiero asesoramiento sobre los planes de Avalian." href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a13 13 0 0 1-5.6-4.9c-.4-.6-.9-1.5-.9-2.4 0-.9.5-1.4.7-1.6.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.4l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.2.1.4.1.6-.1l.8-.9c.2-.2.3-.2.6-.1l1.8.9c.2.1.4.2.4.3v.6Z"/></svg>
+            WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <p>Avalian Cobertura Médica está inscripta en el Registro Nacional de Entidades de Medicina Prepaga (R.N.E.M.P.) bajo el número 1194. Superintendencia de Servicios de Salud, órgano de control de obras sociales y entidades de medicina prepaga: 0800-222-SALUD (72583).</p>
+      <p>Sitio de un asesor comercial oficial. La información de cartilla y coberturas reproduce los diagramas de cobertura y las cartillas de prestadores vigentes de Avalian, y no reemplaza la documentación contractual. Los alcances de cada plan están sujetos a las condiciones del contrato y pueden cambiar. <span id="anio"></span></p>
+    </div>
+  </div>
+</footer>
+
+<div class="barra-fija">
+  <a class="btn btn-lima btn-ancho" href="#cotizar">Pedir mi cotización</a>
+</div>
+<a class="flotante wa" data-msg="Hola, quiero asesoramiento sobre los planes de Avalian." href="#" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+</body>
+</html>
